@@ -1,4 +1,12 @@
 const User = require('../models/user');
+const jwt = require('jwt-simple');
+const config = require('../config');
+
+function tokenForUser(user){
+    const timestamp = new Date().getTime();
+    return jwt.encode({ sub: user.id, iat: timestamp },config.secret);//sub is short for subject, iat short for issued at time
+
+}
 
 
 
@@ -32,7 +40,7 @@ User.findOne({email: email},function(err,existingUser){
         if(err){
             return next(err);
         }
-        res.json({sucess: true});
+        res.json({token: tokenForUser(user)});
     });
 
 
