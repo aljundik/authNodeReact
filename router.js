@@ -6,7 +6,7 @@ const requireAuth = passport.authenticate('jwt',{session: false});
 const requireSigin = passport.authenticate('local',{session: false});
 module.exports = function (app) {
   app.get('/',requireAuth,function(req,res){
-    res.send({hi: 'there'})
+    res.send({message: 'Super sercret code is abc123'});
   });
 
 
